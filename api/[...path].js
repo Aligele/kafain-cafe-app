@@ -9,11 +9,7 @@ const LOYALTY_RATE = 0.10;
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function requireAdmin(req, res) {
-  const key = req.headers["x-admin-key"];
-  if (key !== ADMIN_KEY) {
-    res.status(401).json({ error: "Unauthorized" });
-    return false;
-  }
+  // Admin passcode check disabled per request — dashboard is open.
   return true;
 }
 
