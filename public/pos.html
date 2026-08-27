@@ -117,7 +117,7 @@ async function loadEmployees() {
   const res = await fetch('/api/employees');
   employees = await res.json();
   const sel = document.getElementById('employee');
-  sel.innerHTML = employees.map(e => \`<option value="\${e.id}">\${e.name}</option>\`).join('');
+  sel.innerHTML = employees.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
   const saved = localStorage.getItem('kafain_employee_id');
   if (saved && employees.some(e => String(e.id) === saved)) sel.value = saved;
   sel.addEventListener('change', () => {
@@ -136,13 +136,13 @@ async function loadProducts() {
 
 function renderProducts() {
   const el = document.getElementById('products');
-  el.innerHTML = products.map(p => \`
-    <div class="card glass" data-id="\${p.id}">
-      <div class="name">\${p.name}</div>
-      <div class="price">$\${p.price.toFixed(2)}</div>
-      <div class="stock">\${p.grams_per_unit ? Math.floor(p.stock_grams / p.grams_per_unit) + ' in stock' : ''}</div>
+  el.innerHTML = products.map(p => `
+    <div class="card glass" data-id="${p.id}">
+      <div class="name">${p.name}</div>
+      <div class="price">$${p.price.toFixed(2)}</div>
+      <div class="stock">${p.grams_per_unit ? Math.floor(p.stock_grams / p.grams_per_unit) + ' in stock' : ''}</div>
     </div>
-  \`).join('');
+  `).join('');
   el.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => addToCart(Number(card.dataset.id)));
   });
@@ -162,7 +162,7 @@ function renderCart() {
     const p = products.find(pr => pr.id === item.product_id);
     const lineTotal = p.price * item.quantity;
     subtotal += lineTotal;
-    return \`<div class="line"><span>\${item.quantity}x \${p.name}</span><span>$\${lineTotal.toFixed(2)}</span></div>\`;
+    return `<div class="line"><span>${item.quantity}x ${p.name}</span><span>$${lineTotal.toFixed(2)}</span></div>`;
   }).join('');
   document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
   document.getElementById('total').textContent = '$' + subtotal.toFixed(2);
@@ -179,34 +179,34 @@ async function loadMyTickets() {
     el.innerHTML = '<div style="font-size:13px;color:#b8ab98;">No tickets yet today.</div>';
     return;
   }
-  el.innerHTML = orders.map(o => \`
+  el.innerHTML = orders.map(o => `
     <div class="ticket glass">
-      <span>#\${o.daily_number || o.id} · \${o.payment_method} · \${new Date(o.created_at).toLocaleTimeString()}</span>
-      <span>$\${o.total.toFixed(2)}</span>
+      <span>#${o.daily_number || o.id} · ${o.payment_method} · ${new Date(o.created_at).toLocaleTimeString()}</span>
+      <span>$${o.total.toFixed(2)}</span>
     </div>
-  \`).join('');
+  `).join('');
 }
 
 function showReceipt(order) {
   const empName = order.employee_name || document.querySelector('#employee option:checked')?.textContent || '';
-  const rows = order.items.map(it => \`
-    <tr><td>\${it.quantity}x \${it.name}</td><td style="text-align:right;">$\${it.line_total.toFixed(2)}</td></tr>
-  \`).join('');
-  document.getElementById('receipt').innerHTML = \`
+  const rows = order.items.map(it => `
+    <tr><td>${it.quantity}x ${it.name}</td><td style="text-align:right;">$${it.line_total.toFixed(2)}</td></tr>
+  `).join('');
+  document.getElementById('receipt').innerHTML = `
     <h2>KAFA!N AND CO</h2>
-    <div class="center">Order #\${order.daily_number}</div>
-    <div class="center">\${new Date(order.created_at).toLocaleString()}</div>
-    <div class="center">Served by: \${empName}</div>
+    <div class="center">Order #${order.daily_number}</div>
+    <div class="center">${new Date(order.created_at).toLocaleString()}</div>
+    <div class="center">Served by: ${empName}</div>
     <hr/>
-    <table>\${rows}</table>
+    <table>${rows}</table>
     <hr/>
     <table>
-      <tr><td>Subtotal</td><td style="text-align:right;">$\${order.subtotal.toFixed(2)}</td></tr>
-      <tr><td>Tax</td><td style="text-align:right;">$\${order.tax.toFixed(2)}</td></tr>
-      <tr><td><b>Total</b></td><td style="text-align:right;"><b>$\${order.total.toFixed(2)}</b></td></tr>
+      <tr><td>Subtotal</td><td style="text-align:right;">$${order.subtotal.toFixed(2)}</td></tr>
+      <tr><td>Tax</td><td style="text-align:right;">$${order.tax.toFixed(2)}</td></tr>
+      <tr><td><b>Total</b></td><td style="text-align:right;"><b>$${order.total.toFixed(2)}</b></td></tr>
     </table>
     <div class="center" style="margin-top:10px;">Thank you!</div>
-  \`;
+  `;
   document.getElementById('receiptOverlay').style.display = 'flex';
 }
 
