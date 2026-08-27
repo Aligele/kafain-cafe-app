@@ -188,21 +188,21 @@ async function loadSales() {
   const date = document.getElementById('dateInput').value || todayStr();
   const summary = await api('/api/admin/summary?date=' + date);
 
-  document.getElementById('cards').innerHTML = \`
-    <div class="card glass"><div class="label">Orders</div><div class="value">\${summary.orders_count}</div></div>
-    <div class="card glass"><div class="label">Total sales</div><div class="value">\${fmt(summary.total)}</div></div>
-    <div class="card glass"><div class="label">Status</div><div class="value" style="font-size:14px;">\${summary.closed ? 'Closed' : 'Open'}</div></div>
-  \`;
+  document.getElementById('cards').innerHTML = `
+    <div class="card glass"><div class="label">Orders</div><div class="value">${summary.orders_count}</div></div>
+    <div class="card glass"><div class="label">Total sales</div><div class="value">${fmt(summary.total)}</div></div>
+    <div class="card glass"><div class="label">Status</div><div class="value" style="font-size:14px;">${summary.closed ? 'Closed' : 'Open'}</div></div>
+  `;
 
   document.getElementById('byEmployee').innerHTML = '<tr><th>Waiter</th><th>Orders</th><th>Total</th></tr>' +
-    summary.by_employee.map((r, i) => \`<tr class="\${i === 0 ? 'top' : ''}"><td>\${i === 0 ? '🏆 ' : ''}\${r.employee_name}</td><td>\${r.orders_count}</td><td>\${fmt(r.total)}</td></tr>\`).join('');
+    summary.by_employee.map((r, i) => `<tr class="${i === 0 ? 'top' : ''}"><td>${i === 0 ? '🏆 ' : ''}${r.employee_name}</td><td>${r.orders_count}</td><td>${fmt(r.total)}</td></tr>`).join('');
 
   document.getElementById('byChannel').innerHTML = '<tr><th>Channel</th><th>Orders</th><th>Total</th></tr>' +
-    summary.by_channel.map(r => \`<tr><td>\${r.channel}</td><td>\${r.orders_count}</td><td>\${fmt(r.total)}</td></tr>\`).join('');
+    summary.by_channel.map(r => `<tr><td>${r.channel}</td><td>${r.orders_count}</td><td>${fmt(r.total)}</td></tr>`).join('');
 
   const orders = await api('/api/admin/orders?date=' + date);
   document.getElementById('orders').innerHTML = '<tr><th>#</th><th>Waiter</th><th>Channel</th><th>Payment</th><th>Total</th><th>Time</th></tr>' +
-    orders.map(o => \`<tr><td>\${o.daily_number || o.id}</td><td>\${o.employee_name}</td><td>\${o.channel}</td><td>\${o.payment_method}</td><td>\${fmt(o.total)}</td><td>\${new Date(o.created_at).toLocaleTimeString()}</td></tr>\`).join('');
+    orders.map(o => `<tr><td>${o.daily_number || o.id}</td><td>${o.employee_name}</td><td>${o.channel}</td><td>${o.payment_method}</td><td>${fmt(o.total)}</td><td>${new Date(o.created_at).toLocaleTimeString()}</td></tr>`).join('');
 
   const closeBtn = document.getElementById('closeDayBtn');
   closeBtn.disabled = !!summary.closed;
@@ -244,18 +244,18 @@ async function loadProducts() {
   const products = await api('/api/admin/products');
   const el = document.getElementById('productsTable');
   el.innerHTML = '<tr><th>Name</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>' +
-    products.map(p => \`
-      <tr class="\${p.active ? '' : 'inactive'}">
-        <td>\${p.name}</td>
-        <td>\${fmt(p.price)}</td>
-        <td>\${p.grams_per_unit ? Math.floor(p.stock_grams / p.grams_per_unit) + ' units' : p.stock_grams}</td>
-        <td>\${p.active ? 'Active' : 'Off menu'}</td>
+    products.map(p => `
+      <tr class="${p.active ? '' : 'inactive'}">
+        <td>${p.name}</td>
+        <td>${fmt(p.price)}</td>
+        <td>${p.grams_per_unit ? Math.floor(p.stock_grams / p.grams_per_unit) + ' units' : p.stock_grams}</td>
+        <td>${p.active ? 'Active' : 'Off menu'}</td>
         <td>
-          <button class="small secondary" onclick="restock(\${p.id})">Restock</button>
-          <button class="small secondary" onclick="toggleActive(\${p.id}, \${p.active ? 0 : 1})">\${p.active ? 'Take off menu' : 'Put back on menu'}</button>
+          <button class="small secondary" onclick="restock(${p.id})">Restock</button>
+          <button class="small secondary" onclick="toggleActive(${p.id}, ${p.active ? 0 : 1})">${p.active ? 'Take off menu' : 'Put back on menu'}</button>
         </td>
       </tr>
-    \`).join('');
+    `).join('');
 }
 
 window.restock = async function(id) {
