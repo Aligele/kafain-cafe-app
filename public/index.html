@@ -1,1 +1,94 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kafa!n and Co</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    color: #f4f1ea;
+    min-height: 100vh;
+    position: relative;
+    background-color: #1c1410;
+    background-image:
+      linear-gradient(180deg, rgba(20,14,9,0.72), rgba(20,14,9,0.88)),
+      url('https://raw.githubusercontent.com/Aligele/kafain-pos/main/cafe-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 20%, rgba(255,180,90,0.20), transparent 45%);
+    animation: glow 9s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  @keyframes glow {
+    0% { opacity: 0.55; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.18); }
+  }
+  .card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 380px;
+    padding: 40px 32px;
+    background: rgba(30, 22, 16, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 18px;
+  }
+  .logo {
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: #d8b26a;
+    margin-bottom: 4px;
+  }
+  h1 { font-size: 30px; margin: 0 0 8px; font-weight: 700; }
+  p.sub { color: #cfc4b3; font-size: 14px; margin-bottom: 32px; }
+  a.role {
+    display: block;
+    text-decoration: none;
+    color: #f4f1ea;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+    transition: transform .15s, background .15s;
+  }
+  a.role:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+  a.role .title { font-size: 16px; font-weight: 600; }
+  a.role .desc { font-size: 12px; color: #cfc4b3; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">☕ KAFA!N AND CO</div>
+    <h1>Welcome</h1>
+    <p class="sub">Choose how you're using the system</p>
+    <a class="role" href="/pos">
+      <div class="title">🧾 Waiter — Take orders</div>
+      <div class="desc">Counter POS, print receipts, see your tickets</div>
+    </a>
+    <a class="role" href="/admin">
+      <div class="title">📊 Manager — Dashboard</div>
+      <div class="desc">Sales, menu, stock, staff, close the day</div>
+    </a>
+    <a class="role" href="/menu">
+      <div class="title">🛍️ Online menu</div>
+      <div class="desc">What customers see to order online</div>
+    </a>
+  </div>
+</body>
+</html>
