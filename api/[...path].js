@@ -33,8 +33,8 @@ async function readBody(req) {
 }
 
 export default async function handler(req, res) {
-  const segments = Array.isArray(req.query.path) ? req.query.path : [];
-  const route = "/" + segments.join("/");
+  const urlPath = (req.url || "/").split("?")[0];
+  const route = urlPath.replace(/^\/api/, "") || "/";
   const method = req.method;
 
   try {
