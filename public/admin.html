@@ -124,7 +124,7 @@
 </div>
 
 <script>
-let adminKey = sessionStorage.getItem('kafain_admin_key') || '';
+let adminKey = 'open';
 
 function fmt(n) { return '$' + Number(n).toFixed(2); }
 function todayStr() { return new Date().toISOString().slice(0, 10); }
@@ -298,11 +298,7 @@ document.getElementById('addProductBtn').addEventListener('click', async () => {
   }
 });
 
-if (adminKey) {
-  api('/api/admin/summary?date=' + todayStr()).then(enterDashboard).catch(() => {
-    sessionStorage.removeItem('kafain_admin_key');
-  });
-}
+enterDashboard();
 </script>
 </body>
 </html>
